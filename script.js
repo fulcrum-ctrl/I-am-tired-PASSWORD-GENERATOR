@@ -1,13 +1,16 @@
-// generates a button linked to #generate in line 28
+ // generates a button linked to #generate in line 28
 var generateBtn = document.querySelector("#generate");
 
-//The following are strings that would be used in password generation
+//The following are strings and arrays that would be used in password generation
 var lowerList = "abcdefghijklmnopqrstuvwxyz";
 var upperList = lowerList.toUpperCase();
 var symList = ".;'[]/<>?:{}\+-()*&^%$#@!";
 var numList  ="123456789"
 var arrayFinal = [];
 var cleanString = "";
+var genString = [lowerList,upperList,numList,symList];
+
+console.log(genString)
 
 //this function "removes" all instances of comma, .replace method does not work
 function theShortcut(str){
@@ -19,8 +22,9 @@ function theShortcut(str){
   return cleanString;
 }
 
-var genString = [lowerList,upperList,numList,symList];
-console.log(genString)
+
+//Function below takes in user input regarding password preferences
+//Function then uses these preferences in generating a random password
 function generatePassword(){
   var lenPas = prompt("Input number of characters desired for password: ");
   var lowPas = confirm("Do you want to include lowercase letters?");
@@ -31,26 +35,38 @@ function generatePassword(){
   console.log("Include uppercase: " + capPas);
   console.log("Include number: " + numPas);
   console.log("Include symbols: " + symPas);
+  
+  //All user input is saved in an array to be called later
   var inputAll = [lowPas,capPas,numPas,symPas];
+  
   console.log(inputAll);
-  var passwordString = "";
   var finalList = [];
+
+  //user input array is called in for function to prevent usage of multiple if statements
+  //takes user preferences and makes an array containing possible characters
   for (i=0;i<4;i++){
     if (inputAll[i]){
       arrayFinal.push(genString[i]);
     }
   }
+
   console.log("This be the final array: " + arrayFinal);
+  //turns array into string; problem is the insertion of comma into string
   var megaString = arrayFinal.join();
   console.log("This be the final string: " + megaString);
-  passwordString.concat(megaString.charAt(Math.floor(Math.random()*88)));
+  
+
+  //Makes final array containing characters for password
   for(count=0;count<lenPas;count++){
     finalList.push(megaString.charAt(Math.floor(Math.random()*megaString.length)));
   }
-  var iAmTired = finalList.join();
-  console.log(iAmTired.length);
-  console.log("This should be the final password: " + theShortcut(iAmTired));
-  return theShortcut(iAmTired);
+  
+  var pseudoPassword= finalList.join();
+  console.log(pseudoPassword.length);
+  var passwordString = theShortcut(pseudoPassword);
+  console.log("This should be the final password: " + passwordString);
+  return passwordString;
+
   }
 
 // Write password to the #password input
