@@ -1,12 +1,15 @@
-// Assignment Code
+// generates a button linked to #generate in line 28
 var generateBtn = document.querySelector("#generate");
 
+//The following are strings that would be used in password generation
 var lowerList = "abcdefghijklmnopqrstuvwxyz";
 var upperList = lowerList.toUpperCase();
 var symList = ".;'[]/<>?:{}\+-()*&^%$#@!";
 var numList  ="123456789"
 var arrayFinal = [];
 var cleanString = "";
+
+//this function "removes" all instances of comma, .replace method does not work
 function theShortcut(str){
   for(count = 0;count<str.length;count++){
     if (str.charAt(count) != ","){
@@ -15,8 +18,7 @@ function theShortcut(str){
   }
   return cleanString;
 }
-//console.log( "This is the upperList: " + upperList);
-//console.log(lowerList.charAt(Math.floor(Math.random()*10))); //olrayt we now have our random function working
+
 var genString = [lowerList,upperList,numList,symList];
 console.log(genString)
 function generatePassword(){
@@ -42,30 +44,23 @@ function generatePassword(){
   var megaString = arrayFinal.join();
   console.log("This be the final string: " + megaString);
   passwordString.concat(megaString.charAt(Math.floor(Math.random()*88)));
-  fuckThis = "";
   for(count=0;count<lenPas;count++){
     finalList.push(megaString.charAt(Math.floor(Math.random()*megaString.length)));
   }
   var iAmTired = finalList.join();
   console.log(iAmTired.length);
-  console.log("This should be the final password list: " + theShortcut(iAmTired));
-  var finalPassword = theShortcut(iAmTired);
-  console.log("This should display on that there box: " + finalPassword);
-  return finalPassword;
+  console.log("This should be the final password: " + theShortcut(iAmTired));
+  return theShortcut(iAmTired);
   }
-  
-
-
-
 
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  var passwordText = document.querySelector("#password"); 
+  var passwordText = document.querySelector("#password");
+  console.log("What's happening here: " + password); 
   passwordText.value = password;
 
 }
-//console.log(document.querySelector(#password));
-// Add event listener to generate button
+//triggers writePassword function upon click
 generateBtn.addEventListener("click", writePassword);
 
